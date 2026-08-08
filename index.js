@@ -35,9 +35,10 @@ export default {
       // Default to DeepSeek R1 model on Cloudflare Workers AI
       const model = body.model || "@cf/deepseek-ai/deepseek-r1-distill-qwen-32b";
 
-      // Execute Cloudflare AI run
+      // Execute Cloudflare AI run with maximum output token limit (4096)
       const aiResponse = await env.AI.run(model, {
-        messages: messages
+        messages: messages,
+        max_tokens: body.max_tokens || 4096
       });
 
       // Convert Workers AI response structure to OpenAI Chat Completion Format
